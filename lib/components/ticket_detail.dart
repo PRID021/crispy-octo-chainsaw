@@ -22,7 +22,7 @@ class TicketDetail extends StatelessWidget {
               const CircleAvatar(
                 backgroundImage: AssetImage("assets/image/png/Slide_4.png"),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 4,
               ),
               Text(

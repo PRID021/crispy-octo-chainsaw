@@ -171,39 +171,76 @@ class SlideSection extends StatelessWidget {
                   delegate: SliverAppBarDelegate(
                     minHeight: 64,
                     maxHeight: 64.0,
-                    child: Container(
-                      color: Colors.white,
-                      child: Column(
-                        children: <Widget>[
-                          Padding(
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: <Widget>[
+                        ListenableBuilder(
+                          listenable: percent,
+                          builder: (_, __) => Container(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: 16.0,
-                              vertical: 8.0,
-                            ),
-                            child: ListenableBuilder(
-                              listenable: percent,
-                              builder: (context, _) {
-                                return SliderTheme(
-                                  data: SliderTheme.of(context).copyWith(
-                                    thumbShape: const RoundSliderThumbShape(
-                                      enabledThumbRadius: 0.0,
-                                    ),
-                                  ),
-                                  child: Slider(
-                                    value: percent.value,
-                                    onChanged: (value) {
-                                      innerScrollController.animateTo(
-                                          value * (total),
-                                          duration: const Duration(seconds: 1),
-                                          curve: Curves.ease);
-                                    },
-                                  ),
-                                );
-                              },
+                                horizontal: 16, vertical: 8),
+                            height: 64,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                TitleIndicator(
+                                  title: 'Genres',
+                                  number: 135,
+                                  isHighLight: (percent.value >= 0 &&
+                                      percent.value < 0.25),
+                                ),
+                                TitleIndicator(
+                                  title: 'Rock & Roll',
+                                  number: 72,
+                                  isHighLight: (percent.value >= 0.25 &&
+                                      percent.value < 0.5),
+                                ),
+                                TitleIndicator(
+                                  title: 'Jazz ballads',
+                                  number: 30,
+                                  isHighLight: (percent.value >= 0.5 &&
+                                      percent.value < 0.75),
+                                ),
+                                TitleIndicator(
+                                  title: 'Folk',
+                                  number: 16,
+                                  isHighLight: (percent.value >= 0.75 &&
+                                      percent.value <= 1),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                        ListenableBuilder(
+                          listenable: percent,
+                          builder: (context, _) {
+                            return SliderTheme(
+                              data: SliderTheme.of(context).copyWith(
+                                trackShape: const RectangularSliderTrackShape(),
+                                overlayShape: const RoundSliderOverlayShape(
+                                    overlayRadius: 0),
+                                thumbShape: const RoundSliderThumbShape(
+                                  enabledThumbRadius: 0.0,
+                                  disabledThumbRadius: 0,
+                                  pressedElevation: 0,
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 16),
+                                child: Slider(
+                                  value: percent.value,
+                                  onChanged: (value) {
+                                    innerScrollController.animateTo(
+                                        value * (total),
+                                        duration: const Duration(seconds: 1),
+                                        curve: Curves.ease);
+                                  },
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -247,7 +284,27 @@ class SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return SizedBox.expand(child: child);
+    print("shrinkOffset : $shrinkOffset");
+    bool isPinned = shrinkOffset > 0;
+    return SizedBox.expand(
+      child: Material(
+        elevation: isPinned ? 1 : 0,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              if (isPinned)
+                const BoxShadow(
+                  color: Colors.black54,
+                  blurRadius: 15.0,
+                  offset: Offset(0.0, 5),
+                )
+            ],
+          ),
+          child: child,
+        ),
+      ),
+    );
   }
 
   @override
@@ -255,5 +312,49 @@ class SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
     return maxHeight != oldDelegate.maxHeight ||
         minHeight != oldDelegate.minHeight ||
         child != oldDelegate.child;
+  }
+}
+
+class TitleIndicator extends StatelessWidget {
+  final String title;
+  final int number;
+  final bool isHighLight;
+
+  const TitleIndicator(
+      {super.key,
+      required this.title,
+      required this.number,
+      required this.isHighLight});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          textAlign: TextAlign.start,
+          style: isHighLight
+              ? Theme.of(context)
+                  .textTheme
+                  .bodyLarge
+                  ?.copyWith(color: Colors.black)
+              : Theme.of(context)
+                  .textTheme
+                  .bodySmall
+                  ?.copyWith(color: Colors.black),
+        ),
+        Text(
+          "$number",
+          textAlign: TextAlign.start,
+          style: Theme.of(context)
+              .textTheme
+              .bodyMedium
+              ?.copyWith(color: Theme.of(context).colorScheme.primary),
+        ),
+      ],
+    );
   }
 }
