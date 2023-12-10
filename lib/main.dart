@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'components/filter.dart';
 import 'components/search_bar.dart';
 import 'components/slide_section.dart';
+import 'components/ticket_detail.dart';
 
 void main() {
   runApp(const MyApp());
@@ -74,12 +75,9 @@ class _MyHomePageState extends State<MyHomePage>
       body: TabBarView(
         controller: _tabController,
         children: const [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 8.0),
-            child: SlideSection(),
-          ),
+          SlideSection(),
           Center(
-            child: Text("Tickers"),
+            child: TicketDetail(),
           ),
           Center(
             child: Text("Favorites"),
