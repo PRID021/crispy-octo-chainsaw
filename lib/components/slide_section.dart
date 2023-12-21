@@ -104,23 +104,28 @@ class SlideSection extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.end,
                                       children: [
-                                        DefaultTextStyle(
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium!
-                                              .copyWith(
-                                                color: Colors.white,
+                                        Expanded(
+                                          child: FittedBox(
+                                            child: DefaultTextStyle(
+                                              maxLines: 1,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium!
+                                                  .copyWith(
+                                                    color: Colors.white,
+                                                  ),
+                                              child: const Column(
+                                                mainAxisSize: MainAxisSize.min,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                      "24/3/2022 | 19:30 - 24:00 PM"),
+                                                  Text("Buc Tuong"),
+                                                  Text("Nha hat lon ha noi")
+                                                ],
                                               ),
-                                          child: const Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                  "24/3/2022 | 19:30 - 24:00 PM"),
-                                              Text("Buc Tuong"),
-                                              Text("Nha hat lon ha noi")
-                                            ],
+                                            ),
                                           ),
                                         ),
                                         ElevatedButton(

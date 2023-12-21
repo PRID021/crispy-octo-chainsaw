@@ -1,4 +1,4 @@
-import 'package:extended_text/extended_text.dart';
+// import 'package:extended_text/extended_text.dart';
 import 'package:flutter/material.dart';
 
 class TicketDetail extends StatelessWidget {
@@ -66,33 +66,33 @@ class TicketDetail extends StatelessWidget {
                 .headlineSmall
                 ?.copyWith(fontWeight: FontWeight.bold),
           ),
-          ExtendedText(
-            "Reque gloriatur libris porta voluptatum expetenda. Intellegat eloquentiam verterem populo maluisset non turpis commune maluisset delicata. Aenean laoreet detraxit alterum accumsan quis netus. Novum reque dicta mel volumus. His felis qualisque at pharetra netus laoreet.",
-            style: Theme.of(context).textTheme.bodyMedium,
-            maxLines: 3,
-            overflowWidget: TextOverflowWidget(
-              position: TextOverflowPosition.end,
-              align: TextOverflowAlign.center,
-              child: DefaultTextStyle(
-                style: Theme.of(context)
-                    .textTheme
-                    .labelLarge!
-                    .copyWith(color: Colors.grey),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    const Text('\u2026 '),
-                    InkWell(
-                      child: const Text(
-                        'Xem thêm',
-                      ),
-                      onTap: () {},
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ),
+          // ExtendedText(
+          //   "Reque gloriatur libris porta voluptatum expetenda. Intellegat eloquentiam verterem populo maluisset non turpis commune maluisset delicata. Aenean laoreet detraxit alterum accumsan quis netus. Novum reque dicta mel volumus. His felis qualisque at pharetra netus laoreet.",
+          //   style: Theme.of(context).textTheme.bodyMedium,
+          //   maxLines: 3,
+          //   overflowWidget: TextOverflowWidget(
+          //     position: TextOverflowPosition.end,
+          //     align: TextOverflowAlign.center,
+          //     child: DefaultTextStyle(
+          //       style: Theme.of(context)
+          //           .textTheme
+          //           .labelLarge!
+          //           .copyWith(color: Colors.grey),
+          //       child: Row(
+          //         mainAxisSize: MainAxisSize.min,
+          //         children: <Widget>[
+          //           const Text('\u2026 '),
+          //           InkWell(
+          //             child: const Text(
+          //               'Xem thêm',
+          //             ),
+          //             onTap: () {},
+          //           )
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
           const Divider(
             color: Colors.black,
           ),
